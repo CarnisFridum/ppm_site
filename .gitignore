@@ -1,0 +1,4 @@
+db.sqlite3
+events/__pycache__/views.cpython-311.pyc
+ppm_site/__pycache__/settings.cpython-311.pyc
+ppm_site/__pycache__/wsgi.cpython-311.pyc
