@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <br /><br />
-    <div class="container border">
+    <div class="container border shadow">
         <div class="ps-3">
             <ul class="fs-4 mt-3 row">
                 <div class="col-6 ">
@@ -41,7 +41,7 @@
     <div class="container  col-6">
         <center class="fs-2"> Attended Events</center>
         {% for event in attended_events %}
-        <div class="container border">
+        <div class="container border shadow">
             <div class="ps-3 row">
                 <div class="col-6 ">
                     <center class="m-3 fs-3 overflow-hidden text-wrap text-break"><a href="{% url 'show-event' event.id %}">{{event}}</a></center>
@@ -79,7 +79,7 @@
     <div class="container  col-6">
         <center class="fs-2"> Owned Venues</center>
         {%for venue in owned_venues%}
-        <div class="container border">
+        <div class="container border shadow">
             <div class="ps-3 row">
                 <div class="col-6 ">
                     <center class="m-3 fs-3 overflow-hidden text-wrap text-break"><a href="{% url 'show-venue' venue.id %}">{{venue}}</a></center>

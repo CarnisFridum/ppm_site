@@ -5,7 +5,7 @@
 <div class="container">
     <br>
 
-    <form action="" method=POST>
+    <form class="border shadow p-4" action="" method=POST>
 
         {%csrf_token%}
         <div class="row">
@@ -29,7 +29,7 @@
     </div><br>
 
     {%for venue in venue_list%}
-    <div class="container border">
+    <div class="container border shadow">
         <div class="ps-3 row">
             <div class="col-8 ">
                 <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a

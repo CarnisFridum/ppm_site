@@ -6,10 +6,10 @@
 {% if user.is_authenticated %}
 {% else %}
 
-<center>
-    <div class="container">
-
-        <br> <br>
+<center>       
+     <br />
+    <br />
+<div class="container border shadow p-4">
 
         <form action="" method=POST>
             {% csrf_token %}
@@ -29,6 +29,5 @@
     </div>
 </center>
 {%endif%}
-<a class="nav-link active" aria-current="page" href="{% url 'home'%}">home</a>
 
 {% endblock %}

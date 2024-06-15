@@ -10,9 +10,9 @@
   </div>
 {% endif %}
 
-    <div class="container">
 
-        <br> <br>
+<div class="container border shadow p-4">
+
 
         <form action="{% url 'register-user' %}" method=POST enctype="multipart/form-data">
             {% csrf_token %}

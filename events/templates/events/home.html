@@ -6,7 +6,7 @@
 <div class="row">
 
     <div class="col-3">
-        <div class="card border rounded-0  h-100">
+        <div class="card border shadow rounded-0  h-100">
             {% if user.profilepic.image %}
             <div class="card-img-top d-flex justify-content-center align-items-center">
             <img class="img-fluid p-3" src="{{user.profilepic.image.url}}" alt="">
@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex col-9 flex-column justify-content-center border">
+    <div class="d-flex col-9 flex-column justify-content-center border shadow">
         <div><br></div>
         <div class=" d-flex flex-row">
             
@@ -43,7 +43,7 @@
                 <a class="btn btn-primary" aria-current="page" href="{% url 'add-event' %}">New Event</a>
             </div><br>
             {%for event in my_events%}
-            <div class="container border">
+            <div class="container border shadow">
                 <center class="m-3 fs-3 overflow-hidden text-wrap text-break">
                     <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a href="{% url 'show-event' event.id %}">{{event}}</a></center>
                     <br>
@@ -91,7 +91,7 @@
                 <a class="btn btn-primary" aria-current="page" href="{% url 'add-venue' %}">New Venue</a>
             </div><br>
             {%for venue in my_venues%}
-            <div class="container border">
+            <div class="container border shadow">
                 <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a href="{% url 'show-venue' venue.id %}">{{venue}}</a></center>
 
                 <div class="p-3 row">
