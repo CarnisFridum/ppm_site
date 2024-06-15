@@ -216,14 +216,14 @@ def list_venue(request):
     form = VenueFilterForm(request.POST)
 
     if form.is_valid():
-        if form.cleaned_data['zip_code'] is not '':
-            if form.cleaned_data['owner'] is not '':
+        if form.cleaned_data['zip_code'] != '':
+            if form.cleaned_data['owner'] != '':
                 venue_list = Venue.objects.filter(zip_code__contains=form.cleaned_data['zip_code']).filter(owner=form.cleaned_data['owner'])
             else:
                 venue_list = Venue.objects.filter(zip_code__contains=form.cleaned_data['zip_code'])
 
         else:
-            if form.cleaned_data['owner'] is not '':
+            if form.cleaned_data['owner'] != '':
                 venue_list = Venue.objects.filter(zip_code__contains=form.cleaned_data['zip_code'])
             
     return render(request,
@@ -242,47 +242,47 @@ def list_event(request):
         if form.cleaned_data['start_date'] is not None:
             if form.cleaned_data['end_date'] is not None:
                 if form.cleaned_data['venue']:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(date__lt=form.cleaned_data['end_date']).filter(venue__in=form.cleaned_data['venue']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(date__lt=form.cleaned_data['end_date']).filter(venue__in=form.cleaned_data['venue'])
                 else:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(date__lt=form.cleaned_data['end_date']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(date__lt=form.cleaned_data['end_date'])
             else:
                 if form.cleaned_data['venue']:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(venue__in=form.cleaned_data['venue']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(venue__in=form.cleaned_data['venue'])
 
                 else:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__gt=form.cleaned_data['start_date'])
         else:
             if form.cleaned_data['end_date'] is not None:
                 if form.cleaned_data['venue']:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__lt=form.cleaned_data['end_date']).filter(venue__in=form.cleaned_data['venue']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__lt=form.cleaned_data['end_date']).filter(venue__in=form.cleaned_data['venue'])
                 else:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(date__lt=form.cleaned_data['end_date']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(date__lt=form.cleaned_data['end_date'])
             else:
                 if form.cleaned_data['venue']:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(venue__in=form.cleaned_data['venue']).filter(manager=form.cleaned_data['manager'])
                     else:
                         event_list = Event.objects.filter(venue__in=form.cleaned_data['venue'])
                 else:
-                    if form.cleaned_data['manager'] is not '':
+                    if form.cleaned_data['manager'] != '':
                         event_list = Event.objects.filter(manager=form.cleaned_data['manager'])
 
     return render(request,
