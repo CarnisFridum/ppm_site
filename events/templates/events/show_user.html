@@ -1,0 +1,111 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    <br /><br />
+    <div class="container border">
+        <div class="ps-3">
+            <ul class="fs-4 mt-3 row">
+                <div class="col-6 ">
+                    <center class="m-3 fs-1">{{user}}</center>
+                    <li>First Name: <br> &nbsp;&nbsp; {{user.first_name}}</li>
+                    <br>
+                    <li>Last Name:<br> &nbsp;&nbsp; {{user.last_name}}</li>
+                    <br>
+                    <li>Email:<br> &nbsp;&nbsp; {{user.email}}</li>
+                    <br>
+                </div>
+                <center class="col-6">
+                    {% if user.profilepic.image %}
+                    <div class="d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3" src="{{user.profilepic.image.url}}" alt="">
+                    </div>
+                    {% else %}
+                    <div class="d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3" src="https://placehold.co/400x300" alt="">
+                    </div>
+                    {% endif %}
+                    {% if owner %}
+                    <div >
+                    <a class="btn btn-primary w-25 mb-3" href="{% url 'update-user' user.id %}">Edit</a>
+                    <br>
+                    <a class="btn btn-primary w-25" href="{% url 'update-password' user.id %}">Change password</a>
+                    </div>
+                    {% endif %}
+                </center>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+    <div class="container  col-6">
+        <center class="fs-2"> Attended Events</center>
+        {% for event in attended_events %}
+        <div class="container border">
+            <div class="ps-3 row">
+                <div class="col-6 ">
+                    <center class="m-3 fs-3 overflow-hidden text-wrap text-break"><a href="{% url 'show-event' event.id %}">{{event}}</a></center>
+
+
+                    <ul class="fs-6 mt-3">
+
+                        <li>Date: <br> &nbsp;&nbsp; {{event.date}}</li>
+                        <br>
+                        <li>Venue:<br> &nbsp;&nbsp; <a href="{% url 'show-venue' event.venue.id %}">{{event.venue}}</a>
+                        </li>
+                    </ul>
+                </div>
+                {% if event.image %}
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                <img class="p-3 img-fluid" src="{{event.image.url}}" alt="" >
+                </div>
+                {% else %}
+                {% if event.venue.image %}
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                <img class=" p-3 img-fluid" src="{{event.venue.image.url}}" alt="" >
+                </div>
+                {% else %}
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                <img class=" p-3 img-fluid" src="https://placehold.co/40x40" alt="" >
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <br />
+        {% endfor %}
+    </div>
+
+    <div class="container  col-6">
+        <center class="fs-2"> Owned Venues</center>
+        {%for venue in owned_venues%}
+        <div class="container border">
+            <div class="ps-3 row">
+                <div class="col-6 ">
+                    <center class="m-3 fs-3 overflow-hidden text-wrap text-break"><a href="{% url 'show-venue' venue.id %}">{{venue}}</a></center>
+
+
+                    <ul class="fs-6 mt-3">
+
+                        <li>Address: <br> &nbsp;&nbsp; {{venue.address}}</li>
+                        <br>
+                        <li>Zip_code:<br> &nbsp;&nbsp; {{venue.zip_code}}</li>
+                    </ul>
+                </div>
+                {% if venue.image %}
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                <img class="p-3 img-fluid" src="{{venue.image.url}}" alt="" >
+                </div>
+                {% else %}
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3" src="https://placehold.co/40x40" alt="" >
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <br />
+        {% endfor%}
+    </div>
+    </div>
+</div>
+{% endblock %}

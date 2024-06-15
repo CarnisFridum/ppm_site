@@ -1,0 +1,127 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<br>
+<div class="row">
+
+    <div class="col-3">
+        <div class="card border rounded-0  h-100">
+            {% if user.profilepic.image %}
+            <div class="card-img-top d-flex justify-content-center align-items-center">
+            <img class="img-fluid p-3" src="{{user.profilepic.image.url}}" alt="">
+            </div>
+            {% else %}
+            <div class="card-img-top d-flex justify-content-center align-items-center">
+            <img class="img-fluid p-3" src="https://placehold.co/400x300" alt="">
+            </div>
+            {% endif %}
+            <div class="d-flex align-items-center justify-content-center h-100 ">
+                <center class="p-3">
+                    <h5 class="card-title mb-4 fs-2"><a href="{% url 'show-user' user.id %}">{{user.username}}</a></h5>
+                    <p class="card-text mb-3">{{user.first_name}} {{user.last_name}}</p>
+                    <p class="card-text mb-5 text-break">{{user.email}}</p>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">logout</a>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex col-9 flex-column justify-content-center border">
+        <div><br></div>
+        <div class=" d-flex flex-row">
+            
+            <a class="w-50 btn btn-outline-secondary" href="{% url 'home' old_year old_month %}">
+                < </a>
+                    <a class="w-50 btn btn-outline-secondary" href="{% url 'home' new_year new_month %}"> > </a>
+        </div>
+        {{cal|safe}} <br>
+    </div>
+    <div class="col-6 border-end mt-4 pt-2">
+        <center class="fs-2 mb-4">My Events</center>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" aria-current="page" href="{% url 'add-event' %}">New Event</a>
+            </div><br>
+            {%for event in my_events%}
+            <div class="container border">
+                <center class="m-3 fs-3 overflow-hidden text-wrap text-break">
+                    <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a href="{% url 'show-event' event.id %}">{{event}}</a></center>
+                    <br>
+                    {% if event.manager == user %}
+
+                    <span class="badge bg-warning text-dark">Manager</span>
+                    {% endif %}
+                    {% for attendee in event.attendees.all %}
+                    {% if attendee == user %}
+                    <span class="badge bg-info text-dark">Attendee</span>
+                    {% endif %}
+                    {% endfor %}
+                </center>
+                <div class="p-3 row">
+                    <ul class="col-6 pt-4">
+                        <li>Date: <br> &nbsp;&nbsp; {{event.date}}</li>
+                        <br>
+                        <li>Venue:<br> &nbsp;&nbsp; <a href="{% url 'show-venue' event.venue.id %}">{{event.venue}}</a>
+                        </li>
+                    </ul>
+                    {% if event.image %}
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3 " src="{{event.image.url}}" alt="">
+                    </div>
+                    {% else %}
+                    {% if event.venue.image %}
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3 " src="{{event.venue.image.url}}" alt="">
+                    </div>
+                    {% else %}
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3 " src="https://placehold.co/40x40" alt="">
+                    </div>
+                    {% endif %}
+                    {% endif %}                </div>
+            </div>
+            <br />
+            {% endfor%}
+        </div>
+    </div>
+    <div class="col-6 mt-4 pt-2">
+        <center class="fs-2 mb-4">My Venues</center>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" aria-current="page" href="{% url 'add-venue' %}">New Venue</a>
+            </div><br>
+            {%for venue in my_venues%}
+            <div class="container border">
+                <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a href="{% url 'show-venue' venue.id %}">{{venue}}</a></center>
+
+                <div class="p-3 row">
+                    <ul class="col-6 pt-4">
+                        <li>Address: <br> &nbsp;&nbsp; {{venue.address}}</li>
+                        <br>
+                        <li>Zip code:<br> &nbsp;&nbsp; {{venue.zip_code}}</li>
+                    </ul>
+                    {% if venue.image %}
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3" src="{{venue.image.url}}" alt="">
+                    </div>
+                    {% else %}
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                    <img class="img-fluid p-3" src="https://placehold.co/40x40" alt="">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <br />
+            {% endfor%}
+        </div>
+    </div>
+</div>
+{% else %}
+<br>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-secondary" href="{% url 'login' %}">Please log in to view this page</a>
+</div>
+{% endif %}
+
+
+{% endblock %}

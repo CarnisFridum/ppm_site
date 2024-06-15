@@ -1,0 +1,81 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <div>
+        
+        <form action="" method=POST>
+
+            {%csrf_token%}
+            <div class="row">
+                <div class="col-6 ">
+                    {{form.start_date.label_tag}}
+                    {{form.start_date}}
+                </div>
+                <div class="col-6 ">
+                    {{form.end_date.label_tag}}
+                    {{form.end_date}}
+                </div>
+                <div class="col-12"><br></div>
+                <div class="col-6 d-flex flex-column">
+                    {{form.venue.label_tag}}
+                    {{form.venue}}
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    {{form.manager.label_tag}}
+                    {{form.manager}}
+                </div>
+                <div class="col-12 mt-4 d-flex align-items-center justify-content-center">
+                    <input type="submit" value="submit" class="btn btn-secondary">
+                </div>
+            </div>
+        </form>
+<br><br>
+        <div class=" d-flex justify-content-center">
+            <a class="btn btn-primary" aria-current="page" href="{% url 'add-event' %}">New Event</a>
+        </div>
+    </div>
+    <br><br>
+    
+
+    {%for event in event_list%}
+    <div class="container border">
+        <div class="ps-3 row">
+            <div class="col-8 ">
+                <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a
+                        href="{% url 'show-event' event.id %}">{{event}}</a></center>
+
+                <ul class="fs-4 mt-3">
+
+                    <li>Date: <br> &nbsp;&nbsp; {{event.date}}</li>
+                    <br>
+                    <li>Venue:<br> &nbsp;&nbsp; <a href="{% url 'show-venue' event.venue.id %}">{{event.venue}}</a></li>
+                </ul>
+            </div>
+            {% if event.image %}
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="{{event.image.url}}" alt="">
+            </div>
+            {% else %}
+            {% if event.venue.image %}
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="{{event.venue.image.url}}" alt="">
+            </div>
+
+            {% else %}
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="https://placehold.co/300x300" alt="">
+            </div>
+
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <br />
+    {% endfor%}
+
+</div>
+
+{% endblock %}

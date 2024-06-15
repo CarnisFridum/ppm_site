@@ -1,0 +1,62 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+
+    <form action="" method=POST>
+
+        {%csrf_token%}
+        <div class="row">
+            <div class="col-6 d-flex flex-column">
+                {{form.zip_code.label_tag}}
+                {{form.zip_code}}
+            </div>
+            <div class="col-6 d-flex flex-column">
+                {{form.owner.label_tag}}
+                {{form.owner}}
+            </div>
+
+            <div class="col-12 mt-4 d-flex align-items-center justify-content-center">
+                <input type="submit" value="submit" class="btn btn-secondary">
+            </div>
+        </div>
+    </form>
+    <br><br>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary" aria-current="page" href="{% url 'add-venue' %}">New Venue</a>
+    </div><br>
+
+    {%for venue in venue_list%}
+    <div class="container border">
+        <div class="ps-3 row">
+            <div class="col-8 ">
+                <center class="m-3 fs-1 overflow-hidden text-wrap text-break"><a
+                        href="{% url 'show-venue' venue.id %}">{{venue}}</a></center>
+
+                <ul class="fs-4 mt-3">
+
+                    <li>Address: <br> &nbsp;&nbsp; {{venue.address}}</li>
+                    <br>
+                    <li>Zip_code:<br> &nbsp;&nbsp; {{venue.zip_code}}</li>
+                </ul>
+            </div>
+            {% if venue.image %}
+            <div class="col-4 d-flex justify-content-center align-items-center">
+
+                <img class="img-fluid p-3" src="{{venue.image.url}}" alt="">
+            </div>
+            {% else %}
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="https://placehold.co/300x300" alt="">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br />
+    {% endfor%}
+
+</div>
+
+{% endblock %}

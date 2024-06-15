@@ -1,0 +1,78 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    <br /><br />
+    <div class="container border">
+        <div class="ps-3">
+
+            <ul class="fs-4 mt-3 row">
+                <div class="col-6 ">
+                    <center class="m-3 fs-1 overflow-hidden text-wrap text-break">{{event}}</center>
+
+                    <li>Date: <br> &nbsp;&nbsp; {{event.date}}</li>
+                    <br>
+                    <li>Venue:<br> &nbsp;&nbsp; <a href="{% url 'show-venue' event.venue.id %}">{{event.venue}}</a></li>
+                    <br>
+                    <li>Manager:<br> &nbsp;&nbsp; <a href="{% url 'show-user' event.manager.id %}">{{event.manager}}</a>
+                    </li>
+                    <br>
+                </div>
+                <center class="col-6">
+                    
+
+                    {% if event.image %}
+            <div class="d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="{{event.image.url}}" alt="">
+            </div>
+            {% else %}
+            {% if event.venue.image %}
+            <div class="d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="{{event.venue.image.url}}" alt="">
+            </div>
+
+            {% else %}
+            <div class="d-flex justify-content-center align-items-center">
+                <img class="img-fluid p-3 " src="https://placehold.co/300x300" alt="">
+            </div>
+
+            {% endif %}
+            {% endif %}
+
+                    {% if owner %}
+                    <a class="btn btn-primary w-25" href="{% url 'update-event' event.id %}">Edit</a>
+                    <a class="btn btn-danger w-25" href="{% url 'delete-event' event.id %}">Delete</a>
+                    {% else %}
+                    <a class="btn btn-primary w-25 disabled" href="#">Edit</a>
+                    <a class="btn btn-danger w-25 disabled" href="#">Delete</a>
+                    {% endif %}
+                    <br>
+                    {% if attended %}
+                    <a class="btn m-2 btn-success w-25" href="{% url 'disattend-event' event.id %}">disattend</a>
+                    {% else %}
+                    <a class="btn m-2 btn-success w-25" href="{% url 'attend-event' event.id %}">Attend</a>
+                    {% endif %}
+                </center>
+                <div class="col-3">
+                    <li>Attendees:<br> &nbsp;&nbsp;
+                        {% for attendee in event.attendees.all %}
+                        <ul>
+                            <li><a href="{% url 'show-user' attendee.id %}">{{attendee}}</a></li>
+                        </ul>
+                        {% endfor %}
+                    </li>
+                    <br>
+                </div>
+                <div class="col-9">
+                    <li>Description:<br> &nbsp;&nbsp; {{event.description}}</li>
+                    <br>
+                </div>
+
+            </ul>
+
+        </div>
+    </div>
+    <br />
+
+</div>
+{% endblock %}

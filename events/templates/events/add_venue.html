@@ -1,0 +1,32 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<center>
+    <div class="container">
+        <br />
+        <br />
+        <br />
+        {% if submitted %}
+        your venue was submitted sucsesfully!
+        {% else %}
+        <form action="" method=POST enctype="multipart/form-data">
+            {%csrf_token%}
+
+            {{form.as_p}}
+
+            <input type="submit" value="submit" class="btn btn-secondary">
+        </form>
+        {% endif %}
+        
+
+
+    </div>
+</center>
+{% else %}
+<br>
+<div class="d-flex justify-content-center">
+<a class="btn btn-secondary" href="{% url 'login' %}">Please log in to view this page</a>
+</div>{% endif %}
+
+{% endblock %}

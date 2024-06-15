@@ -1,0 +1,59 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<div class="container">
+    <br /><br />
+    <div class="container border">
+        <div class="ps-3">
+            <ul class="fs-4 mt-3 row">
+                <div class="col-6 ">
+                    <center class="m-3 fs-1 overflow-hidden text-wrap text-break">{{venue}}</center>
+                    <li>Address: <br> &nbsp;&nbsp; {{venue.address}}</li>
+                    <br>
+                    <li>Zip_code:<br> &nbsp;&nbsp; {{venue.zip_code}}</li>
+                    <br>
+                    <li>Phone:<br> &nbsp;&nbsp; {{venue.phone}}</li>
+                    <br>
+                </div>
+                <div class="col-6">
+                    <center>
+                        {% if venue.image %}
+                        <img class="col-4 p-3 w-100" src="{{venue.image.url}}" alt="">
+                        {% else %}
+                        <img class="col-4 p-3 w-100" src="https://placehold.co/40x40" alt="">
+                        {% endif %}
+                    {% if owner %}
+                    <a class="btn btn-primary w-25" href="{% url 'update-venue' venue.id %}">Edit</a>
+                    <a class="btn btn-danger w-25" href="{% url 'delete-venue' venue.id %}">Delete</a>
+                    {% else %}
+                    <a class="btn btn-primary w-25 disabled" href="#">Edit</a>
+                    <a class="btn btn-danger w-25 disabled" href="#">Delete</a>
+                    {% endif %}
+                    <br>
+                </center>
+                </div>
+                <div class="col-6 ">
+                    <li>Web:<br> &nbsp;&nbsp; <a href="{{venue.web}}">{{venue.web}}</a></li>
+                    <br>
+                    <li>Email:<br> &nbsp;&nbsp; {{venue.email}}</li>
+                    <br>
+                </div>
+                <div class="col-6 ">
+                    <li>Owner:<br> &nbsp;&nbsp; <a href="{% url 'show-user' venue.owner.id %}">{{venue.owner}}</a></li>
+                    <br>
+                </div>
+                <br><br>
+                <div class="col-12">
+                    <div class=" d-flex flex-row">
+                        <a class="w-50 btn btn-outline-secondary" href="{% url 'show-venue' venue.id old_year old_month %}"> < </a>
+                        <a class="w-50 btn btn-outline-secondary" href="{% url 'show-venue' venue.id new_year new_month %}"> > </a>
+                    </div>
+                    {{cal|safe}} <br>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <br />
+
+</div>
+{% endblock %}
