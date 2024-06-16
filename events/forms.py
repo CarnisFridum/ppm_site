@@ -33,13 +33,12 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         #fields = "__all__"
-        fields = ('name', 'date', 'venue', 'description', 'attendees', 'image')
+        fields = ('name', 'date', 'venue', 'description', 'image')
         labels = {
             'name': '',
             'date': '',
             'venue': '',
             'description': '',
-            'attendees': '',
             'image': '',
         }
         widgets = {
@@ -47,7 +46,6 @@ class EventForm(ModelForm):
             'date': forms.widgets.DateTimeInput(attrs={'class':'form-control', 'type':'datetime-local', 'placeholder':'Date'}),
             'venue': forms.Select(attrs={'class':'form-control', 'placeholder':'Venue'}),
             'description': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Descrition'}),
-            'attendees': forms.SelectMultiple(attrs={'class':'form-control', 'placeholder':'Attendees'}),
         }
 
 class EventFilterForm(forms.Form):

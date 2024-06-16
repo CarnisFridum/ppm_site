@@ -6,10 +6,10 @@ from django.contrib.auth import get_user_model
 from .models import ProfilePic
 
 class RegisterUserForm(UserCreationForm):
-    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email'}))
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email'}), required=False)
     first_name = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}), max_length=50)
     last_name = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}), max_length=50)
-    image = forms.ImageField(label='')
+    image = forms.ImageField(label='', required=False)
 
     class Meta:
         model = get_user_model()
@@ -37,10 +37,10 @@ class RegisterUserForm(UserCreationForm):
 
 
 class EditUserForm(ModelForm):
-    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email'}))
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email'}), required=False)
     first_name = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}), max_length=50)
     last_name = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}), max_length=50)
-    image = forms.ImageField(label='')
+    image = forms.ImageField(label='', required=False)
 
     class Meta:
         model = get_user_model()

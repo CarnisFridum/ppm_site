@@ -9,7 +9,7 @@ from .models import Event,Venue
 from django.contrib.auth.models import User
 from .forms import VenueForm, EventForm, EventFilterForm, VenueFilterForm
 from django.contrib import messages
-
+from django.db.models import Value
 # Create your views here.
 
 
@@ -296,9 +296,9 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 
     if request.user.is_authenticated:
 
-        my_events = Event.objects.filter(manager=request.user).exclude(date__lt=datetime.now())
-        my_events = my_events.union(Event.objects.filter(attendees=request.user).exclude(date__lt=datetime.now()))
-        my_events = my_events.order_by('manager', 'date')
+        my_events = Event.objects.filter(manager=request.user).exclude(date__lt=datetime.now()).annotate(relevance=Value(1))
+        my_events = my_events.union(Event.objects.filter(attendees=request.user).exclude(date__lt=datetime.now()).exclude(manager=request.user).annotate(relevance=Value(2)))
+        my_events = my_events.order_by('relevance', 'date')
         my_venues = Venue.objects.filter(owner=request.user)
 
         month = month.title()
