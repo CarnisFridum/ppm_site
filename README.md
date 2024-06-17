@@ -2,17 +2,18 @@
 
 Questo sito web è un calendario online che consente agli utenti di visualizzare e prenotare eventi. Le funzionalità principali del sito includono:
 
-<img align="right" src="readme_imgs/home.png" alt="My Image"  width="300">
 
 * **Home Page:**
    * Calendario:
+       <img align="right" src="readme_imgs/home.png" alt="My Image"  width="300">
+
        * Visualizzazione del calendario in modalità mensile
        * Navigazione tra i diversi mesi e anni
        * Visualizzazione degli eventi come icone colorate (blu se si è manager del evento, griglia se si è solo iscritti)
        * Visualizzazione dei dettagli dell'evento cliccando su di esso
-         <img align="right" src="readme_imgs/home.1.png" alt="My Image" width="300">
 
    * Profilo:
+       <img align="right" src="readme_imgs/home.1.png" alt="My Image" width="300">
        * Visualizzazione dati del proprio profilo
        * bottone per il logout
    * Eventi e Luoghi:
