@@ -11,6 +11,7 @@ Questo sito web è un calendario online che consente agli utenti di visualizzare
        * Visualizzazione degli eventi come icone colorate (blu se si è manager del evento, griglia se si è solo iscritti)
        * Visualizzazione dei dettagli dell'evento cliccando su di esso
 <img align="right" src="readme_imgs/home.1.png" alt="My Image"  width="300">
+* ****
    * Profilo:
        * Visualizzazione dati del proprio profilo
        * bottone per il logout
