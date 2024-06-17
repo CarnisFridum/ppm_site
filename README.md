@@ -2,7 +2,7 @@
 
 Questo sito web è un calendario online che consente agli utenti di visualizzare e prenotare eventi. Le funzionalità principali del sito includono:
 
-<img align="left" src="readme_imgs/home.png" alt="My Image">
+<img align="left" src="readme_imgs/home.png" alt="My Image"  width="200">
 
 * **Visualizzazione del calendario:**
     * Visualizzazione del calendario in modalità mensile, settimanale o giornaliera
