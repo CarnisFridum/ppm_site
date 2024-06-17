@@ -12,7 +12,7 @@ Questo sito web è un calendario online che consente agli utenti di visualizzare
 
        * Visualizzazione del calendario in modalità mensile
        * Navigazione tra i diversi mesi e anni
-       * Visualizzazione degli eventi come icone colorate (blu se si è manager del evento, griglia se si è solo iscritti)
+       * Visualizzazione degli eventi come icone colorate (blu se si è manager del evento, grigia se si è solo iscritti)
        * Visualizzazione dei dettagli dell'evento cliccando su di esso
 
    * Profilo:
