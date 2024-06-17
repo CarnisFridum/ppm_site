@@ -13,8 +13,8 @@ Questo sito web è un calendario online che consente agli utenti di visualizzare
        * Visualizzazione dei dettagli dell'evento cliccando su di esso
 
    * Profilo:
-       * Visualizzazione dati del proprio profilo
        <img align="right" src="readme_imgs/home.1.png" alt="My Image" width="300">
+       * Visualizzazione dati del proprio profilo
        * bottone per il logout
    * Eventi e Luoghi:
        * Visualizzazione degli eventi e dei luoghi dei quali si è proprietari, o degli eventi ai quali si è iscritti
