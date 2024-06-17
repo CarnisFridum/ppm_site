@@ -1,6 +1,6 @@
 ## Funzionalità del sito web
 
-Questo sito web è un calendario online che consente agli utenti di visualizzare e prenotare eventi. Le funzionalità principali del sito includono:
+Questo sito web è un manager di eventi che consente a gli utenti di visualizzare, iscriversi ed organizzare eventi. Le funzionalità principali del sito includono:
 
    
 * **Registrazione:**
