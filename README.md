@@ -2,7 +2,10 @@
 
 Questo sito web è un calendario online che consente agli utenti di visualizzare e prenotare eventi. Le funzionalità principali del sito includono:
 
-
+   
+* **Registrazione:**
+    <img align="right" src="readme_imgs/register.png" alt="My Image"  width="300">
+    * per accedere ad alcune pagine del sito ed utilizzarne tutte le funzionalità è necessario fare un account e loggarsi  
 * **Home Page:**
    * Calendario:
        <img align="right" src="readme_imgs/home.png" alt="My Image"  width="300">
@@ -18,16 +21,19 @@ Questo sito web è un calendario online che consente agli utenti di visualizzare
        * bottone per il logout
    * Eventi e Luoghi:
        * Visualizzazione degli eventi e dei luoghi dei quali si è proprietari, o degli eventi ai quali si è iscritti
-   
-* **Prenotazione di eventi:**
-    * Clic su un evento per visualizzare i dettagli e prenotarsi
-    * Inserimento delle informazioni di contatto e selezione del numero di posti
-    * Ricezione di una conferma via e-mail dopo la prenotazione
-* **Ricerca di eventi:**
-    * Utilizzo della barra di ricerca per trovare eventi per parola chiave, data, ora o luogo
-    * Visualizzazione dei risultati della ricerca come elenco di eventi
-* **Altre funzionalità:**
-    * Creazione di un account per salvare le preferenze e prenotare eventi più rapidamente
-    * Aggiunta di eventi al proprio calendario personale
-    * Condivisione di eventi con altri utenti
+
+* **Barra di ricerca:**
+    <img align="right" src="readme_imgs/search.png" alt="My Image" width="300">
+    * Utilizzo della barra di ricerca per trovare eventi e luoghi per parola chiave
+    * Visualizzazione dei risultati della ricerca come elenco di risultati
+* **Lista degli eventi e dei luoghi:**
+    <img align="right" src="readme_imgs/showevents.png" alt="My Image" width="300">
+    * Navigazione tra gli eventi ed i luoghi publicati sul sito
+    * Possibilità di filtrare i risultati in base ai campi degli oggetti
+    * Bottone per l'aggiunta di nuovi elementi sul sito
+* **Visualizzazione di singoli eventi, luoghi e utenti:**
+    <img align="right" src="readme_imgs/showuser.png" alt="My Image" width="300">
+    * Visualizzazioni della specifica istanza e dei suoi dati
+    * Possibilità di modifica/rimozione del istanza se se ne è il proprietario
+    * In caso si stia visualizzando un evento è possibile iscriversi al evento
 
