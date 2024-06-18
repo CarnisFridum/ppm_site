@@ -224,7 +224,7 @@ def list_venue(request):
 
         else:
             if form.cleaned_data['owner'] != '':
-                venue_list = Venue.objects.filter(zip_code__contains=form.cleaned_data['zip_code'])
+                venue_list = Venue.objects.filter(owner=form.cleaned_data['owner'])
             
     return render(request,
         'events/venue_list.html', {
