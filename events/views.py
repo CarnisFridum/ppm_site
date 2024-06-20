@@ -14,82 +14,112 @@ from django.db.models import Value
 
 
 def attend_event(request, event_id):
-    event = Event.objects.get(pk=event_id)
-    event.attendees.add(request.user)
+    if request.user.is_authenticated:
+        event = Event.objects.get(pk=event_id)
+        event.attendees.add(request.user)
 
 
-    messages.success(request, ("Event attended"))
-    return redirect('show-event', event_id)
+        messages.success(request, ("Event attended"))
+        return redirect('show-event', event_id)
+    else:
+        return redirect('home')
+
 
 
 def disattend_event(request, event_id):
-    event = Event.objects.get(pk=event_id)
-    event.attendees.remove(request.user)
+
+    if request.user.is_authenticated:
+        event = Event.objects.get(pk=event_id)
+        event.attendees.remove(request.user)
 
 
-    messages.success(request, ("Event disattended"))
-    return redirect('show-event', event_id)
+        messages.success(request, ("Event disattended"))
+        return redirect('show-event', event_id)
+    else:
+        return redirect('home')
+
 
 def delete_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    event.delete()
+    if request.user == event.manager:
+        event.delete()
+        messages.success(request, ("Event deleted"))
+        return redirect('list-event')
+    else:
+        return redirect('home')
 
-    messages.success(request, ("Event deleted"))
-    return redirect('list-event')
 
 
 def delete_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
-    venue.delete()
-    messages.success(request, ("Venue deleted"))
+    if request.user == venue.owner:
+        venue.delete()
+        messages.success(request, ("Venue deleted"))
 
-    return redirect('list-venue')
+        return redirect('list-venue')
+    else:
+        return redirect('home')
+
 
 def update_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
-    form = VenueForm(request.POST or None, request.FILES or None, instance = venue)
-    if form.is_valid():
-        form.save()
-        messages.success(request, ("Venue updated"))
-        return redirect('list-venue')
+    if request.user == venue.owner:
 
-    return render(request,
-        'events/update_venue.html', {
-        'venue': venue,
-        'form': form,
-        })
+        form = VenueForm(request.POST or None, request.FILES or None, instance = venue)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Venue updated"))
+            return redirect('list-venue')
+
+        return render(request,
+            'events/update_venue.html', {
+            'venue': venue,
+            'form': form,
+            })
+    
+    else:
+        return redirect('home')
 
 def update_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    form = EventForm(request.POST or None, request.FILES or None, instance = event)
-    if form.is_valid():
-        form.save()
-        messages.success(request, ("Event updated"))
-        return redirect('list-event')
+    if request.user == event.manager:
 
-    return render(request,
-        'events/update_event.html', {
-        'event': event,
-        'form': form,
-        })
+        form = EventForm(request.POST or None, request.FILES or None, instance = event)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Event updated"))
+            return redirect('list-event')
+
+        return render(request,
+            'events/update_event.html', {
+            'event': event,
+            'form': form,
+            })
+    else:
+        return redirect('home')
 
 def add_event(request):
-    submitted = False
-    if request.method == "POST":
-        form = EventForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.manager = request.user
-            form.save()
-            return HttpResponseRedirect('/add_event?submitted=True')
+
+    if request.user.is_authenticated:
+
+        submitted = False
+        if request.method == "POST":
+            form = EventForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.instance.manager = request.user
+                form.save()
+                return HttpResponseRedirect('/add_event?submitted=True')
+        else:
+            form = EventForm
+            if 'submitted' in request.GET:
+                submitted = True
+        return render(request,
+            'events/add_event.html', {
+            'form': form,
+            'submitted':submitted,
+            })
     else:
-        form = EventForm
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request,
-        'events/add_event.html', {
-        'form': form,
-        'submitted':submitted,
-        })
+        return redirect('home')
 
 def search_result(request, search_type):
     if request.method == "POST":
@@ -194,22 +224,27 @@ def show_event(request, event_id):
         })
 
 def add_venue(request):
-    submitted = False
-    if request.method == "POST":
-        form = VenueForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.owner = request.user
-            form.save()
-            return HttpResponseRedirect('/add_venue?submitted=True')
+
+    if request.user.is_authenticated:
+
+        submitted = False
+        if request.method == "POST":
+            form = VenueForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.instance.owner = request.user
+                form.save()
+                return HttpResponseRedirect('/add_venue?submitted=True')
+        else:
+            form = VenueForm
+            if 'submitted' in request.GET:
+                submitted = True
+        return render(request,
+            'events/add_venue.html', {
+            'form': form,
+            'submitted':submitted,
+            })
     else:
-        form = VenueForm
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request,
-        'events/add_venue.html', {
-        'form': form,
-        'submitted':submitted,
-        })
+        return redirect('home')
         
 def list_venue(request):
     venue_list = Venue.objects.all()

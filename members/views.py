@@ -8,70 +8,89 @@ from django.contrib.auth.models import User
 
 def update_password(request, user_id):
     user = User.objects.get(pk=user_id)
-    form = PasswordChangeForm(user, request.POST or None)
-    if form.is_valid():
-        form.save()
-        messages.success(request, ("Password updated"))
-        return redirect('login')
+    if request.user == user:
 
-    return render(request,
-        'authenticate/update_password.html', {
-        'user': user,
-        'form': form,
-        })
+        form = PasswordChangeForm(user, request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Password updated"))
+            return redirect('login')
+
+        return render(request,
+            'authenticate/update_password.html', {
+            'user': user,
+            'form': form,
+            })
+    else:
+        return redirect('home')
 
 def update_user(request, user_id):
     user = User.objects.get(pk=user_id)
-    initial = {'image': user.profilepic.image}
-    form = EditUserForm(request.POST or None, request.FILES or None, instance=user, initial = initial)
-    if form.is_valid():
-        form.save()
-        messages.success(request, ("User updated"))
-        return redirect('home')
+    if request.user == user:
+        initial = {'image': user.profilepic.image}
+        form = EditUserForm(request.POST or None, request.FILES or None, instance=user, initial = initial)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("User updated"))
+            return redirect('home')
 
-    return render(request,
-        'authenticate/update_user.html', {
-        'user': user,
-        'form': form,
-        })
+        return render(request,
+            'authenticate/update_user.html', {
+            'user': user,
+            'form': form,
+            })
+    else:
+        return redirect('home')
 
 
 def register_user(request):
-    if request.method == "POST":
-        form = RegisterUserForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, ("registration done"))
-            return redirect('home')
+    if not request.user.is_authenticated:
+
+        if request.method == "POST":
+            form = RegisterUserForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password1']
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                messages.success(request, ("registration done"))
+                return redirect('home')
+        else:
+            form = RegisterUserForm()
+        return render(request, 'authenticate/register_user.html', {
+            'form':form,
+        })
     else:
-        form = RegisterUserForm()
-    return render(request, 'authenticate/register_user.html', {
-        'form':form,
-    })
+        return redirect('home')
 
 def logout_user(request):
-    logout(request)
-    messages.success(request, ("logged out"))
-    return render(request, 'events/home.html', {})
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, ("logged out"))
+        return render(request, 'events/home.html', {})
+    else:
+        return redirect('home')
 
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
+    if not request.user.is_authenticated:
+
+        if request.method == "POST":
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.success(request,("error logging in"))
+                return redirect('login')
         else:
-            messages.success(request,("error logging in"))
-            return redirect('login')
+            return render(request, 'authenticate/login.html', {})
     else:
-        return render(request, 'authenticate/login.html', {})
+        return redirect('home')
+
 
 
 
